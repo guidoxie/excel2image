@@ -15,7 +15,6 @@
 .idea
 .vscode
 vendor
-go.sum
 docs/docs.go
 docs/swagger.json
 docs/swagger.yaml
