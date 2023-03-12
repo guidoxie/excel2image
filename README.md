@@ -4,13 +4,13 @@ bash running.sh
 ```
 
 # Parameters
-* format
+* format:
   Output file format (png jpeg jpg)
-* quality
+* quality:
   Output image quality (between 0 and 100) (default 94)
-* width
+* width:
   Set screen width, note that this is used only as a guide line (default 1024)
-* height
+* height:
   Set screen height (default is calculated from page content) (default 0)
 
 # Example 
