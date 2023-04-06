@@ -16,6 +16,10 @@ COPY ["./excel2image", "/home/excel2image/"]
 COPY ["./docker-entrypoint.sh", "/docker-entrypoint.sh"]
 COPY ["./resource/*.TTC", "/usr/share/fonts/"]
 
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
 RUN set -eux; \
     yum clean all; \
     yum makecache; \
@@ -30,8 +34,8 @@ RUN set -eux; \
 
 WORKDIR $WORK_DIR_PATH
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/tini", "--"]
 
 EXPOSE 12128
 
-CMD ["./excel2image"]
+CMD ["/docker-entrypoint.sh"]

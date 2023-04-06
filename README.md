@@ -1,6 +1,6 @@
 # Running the docker container 
 ```shell
-bash running.sh
+docker run -d -p 12128:12128 --name excel2image guidoxie/excel2image:0.1
 ```
 
 # Parameters

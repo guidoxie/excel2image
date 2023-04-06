@@ -28,8 +28,10 @@ var (
 )
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	snowflake.SetMachineID(0)
-	router := gin.Default()
+	router := gin.New()
+	router.Use(gin.Recovery())
 	router.POST("api/upload", func(c *gin.Context) {
 		param := struct {
 			Format  string `form:"format" binding:"oneof=png jpeg jpg"`
@@ -100,16 +102,14 @@ func excel2image(file []byte, format string, quality int, width int, height int)
 		return nil, err
 	}
 	// xlsx => html
-	cmd := exec.Command("libreoffice7.4", "--invisible", "--convert-to", "html", xlsx, "--outdir", os.TempDir())
-	log.Println(cmd.String())
-	if out, err := cmd.Output(); err != nil {
+	cmd := exec.Command("libreoffice7.4", "--nologo", "--headless", "--convert-to", "html", xlsx, "--outdir", os.TempDir())
+	if out, err := cmd.CombinedOutput(); err != nil {
 		log.Printf("xlsx => html err: %v out:%s", err, string(out))
 		return nil, err
 	}
 	// html => image
 	cmd = exec.Command("wkhtmltoimage", "--quality", cast.ToString(quality), "--width", cast.ToString(width), "--height", cast.ToString(height), "-f", format, html, image)
-	log.Println(cmd.String())
-	if out, err := cmd.Output(); err != nil {
+	if out, err := cmd.CombinedOutput(); err != nil {
 		log.Printf("html => image err: %v out:%s", err, string(out))
 	}
 	return ReadFile(image)
