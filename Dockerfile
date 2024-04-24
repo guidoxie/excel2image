@@ -26,8 +26,8 @@ RUN set -eux; \
     echo "${TZ}" > /etc/timezone; \
     ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime; \
     yum install -y wget; \
-    cd /tmp/ && wget --no-check-certificate https://download.documentfoundation.org/libreoffice/stable/7.4.6/rpm/x86_64/LibreOffice_7.4.6_Linux_x86-64_rpm.tar.gz; \
-    yum install -y ./wkhtmltox-0.12.6-1.centos7.x86_64.rpm && tar zxvf LibreOffice_7.4.6_Linux_x86-64_rpm.tar.gz && yum install -y ./LibreOffice_7.4.6.2_Linux_x86-64_rpm/RPMS/*.rpm && rm -rf wkhtmltox-0.12.6-1.centos7.x86_64.rpm LibreOffice*;\
+    cd /tmp/ && wget --no-check-certificate https://mirrors.ustc.edu.cn/tdf/libreoffice/stable/7.6.6/rpm/x86_64/LibreOffice_7.6.6_Linux_x86-64_rpm.tar.gz; \
+    yum install -y ./wkhtmltox-0.12.6-1.centos7.x86_64.rpm && tar zxvf LibreOffice_7.6.6_Linux_x86-64_rpm.tar.gz && yum install -y ./LibreOffice_7.6.6.3_Linux_x86-64_rpm/RPMS/*.rpm && rm -rf wkhtmltox-0.12.6-1.centos7.x86_64.rpm LibreOffice*;\
     yum install -y cairo cups; \
     gosu nobody true; \
     yum clean all
