@@ -102,7 +102,7 @@ func excel2image(file []byte, format string, quality int, width int, height int)
 		return nil, err
 	}
 	// xlsx => html
-	cmd := exec.Command("libreoffice7.4", "--nologo", "--headless", "--convert-to", "html", xlsx, "--outdir", os.TempDir())
+	cmd := exec.Command("libreoffice7.6", "--nologo", "--headless", "--convert-to", "html", xlsx, "--outdir", os.TempDir())
 	if out, err := cmd.CombinedOutput(); err != nil && !strings.Contains(string(out), "Warning") {
 		log.Printf("xlsx => html err: %v out:%s", err, string(out))
 		return nil, err
